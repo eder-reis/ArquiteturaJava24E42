@@ -8,6 +8,11 @@ public class Endereco {
 	private String localidade;
 	private String uf;
 	
+	@Override
+	public String toString() {
+		return cep;		
+	}
+	
 	public String getCep() {
 		return cep;
 	}

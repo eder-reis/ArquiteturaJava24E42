@@ -9,13 +9,17 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import br.edu.infnet.eder.client.EnderecoClient;
+import br.edu.infnet.eder.client.LocalidadeClient;
 import br.edu.infnet.eder.model.domain.Autor;
 import br.edu.infnet.eder.model.domain.Comentario;
 import br.edu.infnet.eder.model.domain.ELivro;
 import br.edu.infnet.eder.model.domain.Editora;
 import br.edu.infnet.eder.model.domain.Endereco;
+import br.edu.infnet.eder.model.domain.Estado;
 import br.edu.infnet.eder.model.domain.Livro;
 import br.edu.infnet.eder.model.domain.LivroFisico;
+import br.edu.infnet.eder.model.domain.Municipio;
 import br.edu.infnet.eder.model.service.AutorService;
 
 @Component
@@ -24,8 +28,23 @@ public class Loader implements ApplicationRunner {
 	@Autowired
 	private AutorService autorService;
 	
+	@Autowired
+	private EnderecoClient enderecoClient;
+	
+	@Autowired
+	private LocalidadeClient localidadeClient;
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		
+		for(Estado estado : localidadeClient.obterEstados()) {
+			System.out.println("ESTADO: " + estado.getNome());
+		}
+		
+		for(Municipio municipio : localidadeClient.obterMunicipios(33)) {
+			System.out.println("MUNICÍPIO: " + municipio.getNome());
+		}
+		
 		// TODO Auto-generated method stub
 		FileReader file = new FileReader("arquivos/base.txt");
 		
@@ -119,7 +138,8 @@ public class Loader implements ApplicationRunner {
 					break;
 					
 				case "END":
-					Endereco endereco = new Endereco();
+					
+					Endereco endereco = enderecoClient.findByCep(campos[1]);
 					
 					endereco.setCep(campos[1]);
 					

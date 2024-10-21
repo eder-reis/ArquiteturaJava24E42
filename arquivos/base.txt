@@ -12,5 +12,5 @@ E;2;2;Sextante;www.sextante.com.br
 LF;3;2;Filho do Hamas;199.99;true;true
 LE;4;2;Filho do Hamas;109.99;www.amazon.com;10
 C;3;0;true;Livro muito bom.
-C;4;1;true;Ainda comprarei o livro fisico.
-END;41820560
+C;4;1;true;Ainda comprarei o livro físico.
+END;22270000

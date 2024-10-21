@@ -4,10 +4,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="Autor")
 public class Autor {
-	private int codigo;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer codigo;
+	
 	private String nome;
-	private LocalDate dataNascimento; 
+	private LocalDate dataNascimento;
+	
+	@Transient
 	private List<Livro> livros;
 	
 	public Autor() {
@@ -20,11 +35,11 @@ public class Autor {
 				codigo, nome, livros.size());
 	}
 	
-	public int getCodigo() {
+	public Integer getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 
