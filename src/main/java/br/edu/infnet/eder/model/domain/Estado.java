@@ -1,26 +1,13 @@
 package br.edu.infnet.eder.model.domain;
 
-public class Estado {
-
-	private Integer id;
-	private String sigla;
-	private String nome;
-	public Integer getId() {
-		return id;
+public class Estado extends Regiao {
+	private Regiao regiao;
+	
+	public Regiao getRegiao() {
+		return regiao;
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getSigla() {
-		return sigla;
-	}
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
+	
+	public void setRegiao(Regiao regiao) {
+		this.regiao = regiao;
 	}
 }

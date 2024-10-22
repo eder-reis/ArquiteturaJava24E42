@@ -45,7 +45,6 @@ public class Loader implements ApplicationRunner {
 			System.out.println("MUNICÍPIO: " + municipio.getNome());
 		}
 		
-		// TODO Auto-generated method stub
 		FileReader file = new FileReader("arquivos/base.txt");
 		
 		BufferedReader leitura = new BufferedReader(file);
@@ -140,8 +139,6 @@ public class Loader implements ApplicationRunner {
 				case "END":
 					
 					Endereco endereco = enderecoClient.findByCep(campos[1]);
-					
-					endereco.setCep(campos[1]);
 					
 					for(Livro livroDoAutor: autor.getLivros()) {
 						livroDoAutor.getEditora().setEndereco(endereco);
