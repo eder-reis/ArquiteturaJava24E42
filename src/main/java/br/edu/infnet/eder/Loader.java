@@ -9,8 +9,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.eder.client.EnderecoClient;
-import br.edu.infnet.eder.client.LocalidadeClient;
 import br.edu.infnet.eder.model.domain.Autor;
 import br.edu.infnet.eder.model.domain.Comentario;
 import br.edu.infnet.eder.model.domain.ELivro;
@@ -20,7 +18,10 @@ import br.edu.infnet.eder.model.domain.Estado;
 import br.edu.infnet.eder.model.domain.Livro;
 import br.edu.infnet.eder.model.domain.LivroFisico;
 import br.edu.infnet.eder.model.domain.Municipio;
+import br.edu.infnet.eder.model.repository.LivroRepository;
 import br.edu.infnet.eder.model.service.AutorService;
+import br.edu.infnet.eder.model.service.LivroService;
+import br.edu.infnet.eder.model.service.LocalidadeService;
 
 @Component
 public class Loader implements ApplicationRunner {
@@ -29,19 +30,19 @@ public class Loader implements ApplicationRunner {
 	private AutorService autorService;
 	
 	@Autowired
-	private EnderecoClient enderecoClient;
-	
+	private LocalidadeService localidadeService;
+
 	@Autowired
-	private LocalidadeClient localidadeClient;
+	private LivroService livroService;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
-		for(Estado estado : localidadeClient.obterEstados()) {
+		for(Estado estado : localidadeService.obterEstados()) {
 			System.out.println("ESTADO: " + estado.getNome());
 		}
 		
-		for(Municipio municipio : localidadeClient.obterMunicipios(33)) {
+		for(Municipio municipio : localidadeService.obterMunicipios(33)) {
 			System.out.println("MUNICÍPIO: " + municipio.getNome());
 		}
 		
@@ -62,30 +63,31 @@ public class Loader implements ApplicationRunner {
 				case "A":
 					autor = new Autor();
 					
-					autor.setCodigo(Integer.parseInt(campos[1]));
+					// autor.setCodigo(Integer.parseInt(campos[1]));
 					
 					autor.setNome(campos[2]);
 					
 					autor.setDataNascimento(LocalDate.parse(campos[3]));
 					
-					autorService.incluir(autor);
+					autor = autorService.incluir(autor);
+					
 					break;
 					
 				case "E":
 					
-					editora = new Editora();
+					/*editora = new Editora();
 					
 					editora.setCodigo(Integer.parseInt(campos[1]));
 					
 					editora.setNome(campos[3]);
 					
-					editora.setEnderecoWeb(campos[4]);
+					editora.setEnderecoWeb(campos[4]);*/
 					
 					break;
 				case "LF":
 					LivroFisico livro = new LivroFisico();
 					
-					livro.setCodigo(Integer.parseInt(campos[1]));
+					// livro.setCodigo(Integer.parseInt(campos[1]));
 					
 					livro.setNome(campos[3]);
 					
@@ -99,14 +101,18 @@ public class Loader implements ApplicationRunner {
 					
 					livro.setEditora(editora);
 					
-					autor.getLivros().add(livro);
+					livro.setAutor(autor);
+					
+					// autor.getLivros().add(livro);
+					
+					livroService.incluir(livro);
 					
 					break;
 						
 				case "LE":
 					ELivro eLivro = new ELivro();
 					
-					eLivro.setCodigo(Integer.parseInt(campos[1]));
+					// eLivro.setCodigo(Integer.parseInt(campos[1]));
 					
 					eLivro.setNome(campos[3]);
 					
@@ -120,11 +126,16 @@ public class Loader implements ApplicationRunner {
 					
 					eLivro.setEditora(editora);
 					
-					autor.getLivros().add(eLivro);
+					eLivro.setAutor(autor);
+					
+					// autor.getLivros().add(eLivro);
+					
+					livroService.incluir(eLivro);
+										
 					break;
 					
 				case "C":
-					Comentario comentario = new Comentario();
+					/*Comentario comentario = new Comentario();
 					
 					comentario.setCodigo(Integer.parseInt(campos[1]));
 					
@@ -132,13 +143,13 @@ public class Loader implements ApplicationRunner {
 					
 					comentario.setResenha(campos[4]);
 					
-					autor.getLivros().get(Integer.parseInt(campos[2])).getComentarios().add(comentario);
+					autor.getLivros().get(Integer.parseInt(campos[2])).getComentarios().add(comentario);*/
 					
 					break;
 					
 				case "END":
 					
-					Endereco endereco = enderecoClient.findByCep(campos[1]);
+					Endereco endereco = localidadeService.findByCep(campos[1]);
 					
 					for(Livro livroDoAutor: autor.getLivros()) {
 						livroDoAutor.getEditora().setEndereco(endereco);

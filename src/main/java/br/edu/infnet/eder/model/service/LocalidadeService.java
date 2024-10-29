@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.infnet.eder.client.EnderecoClient;
 import br.edu.infnet.eder.client.LocalidadeClient;
 import br.edu.infnet.eder.model.domain.Autor;
 import br.edu.infnet.eder.model.domain.Endereco;
@@ -21,6 +22,13 @@ public class LocalidadeService {
 	
 	@Autowired
 	private LocalidadeClient localidadeClient;
+	
+	@Autowired
+	private EnderecoClient enderecoClient;
+	
+	public Endereco findByCep(String cep) {
+		return enderecoClient.findByCep(cep);
+	}
 	
 	public Collection<Estado> obterEstados(){
 		return localidadeClient.obterEstados();

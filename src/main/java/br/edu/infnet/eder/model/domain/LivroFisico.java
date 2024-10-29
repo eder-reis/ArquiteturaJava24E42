@@ -1,5 +1,9 @@
 package br.edu.infnet.eder.model.domain;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "LivroFisico")
 public class LivroFisico extends Livro {
 	private boolean temEstoque;
 	private boolean capaDura;

@@ -1,5 +1,9 @@
 package br.edu.infnet.eder.model.domain;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "ELivro")
 public class ELivro extends Livro {
 	private String link;
 	private int numeroDownloads;
