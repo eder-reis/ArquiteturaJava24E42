@@ -10,15 +10,10 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.eder.model.domain.Autor;
-import br.edu.infnet.eder.model.domain.Comentario;
 import br.edu.infnet.eder.model.domain.ELivro;
 import br.edu.infnet.eder.model.domain.Editora;
 import br.edu.infnet.eder.model.domain.Endereco;
-import br.edu.infnet.eder.model.domain.Estado;
-import br.edu.infnet.eder.model.domain.Livro;
 import br.edu.infnet.eder.model.domain.LivroFisico;
-import br.edu.infnet.eder.model.domain.Municipio;
-import br.edu.infnet.eder.model.repository.LivroRepository;
 import br.edu.infnet.eder.model.service.AutorService;
 import br.edu.infnet.eder.model.service.LivroService;
 import br.edu.infnet.eder.model.service.LocalidadeService;
@@ -38,13 +33,13 @@ public class Loader implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
-		for(Estado estado : localidadeService.obterEstados()) {
-			System.out.println("ESTADO: " + estado.getNome());
-		}
+		// for(Estado estado : localidadeService.obterEstados()) {
+		// 	System.out.println("ESTADO: " + estado.getNome());
+		// }
 		
-		for(Municipio municipio : localidadeService.obterMunicipios(33)) {
-			System.out.println("MUNICÍPIO: " + municipio.getNome());
-		}
+		// for(Municipio municipio : localidadeService.obterMunicipios(33)) {
+		// 	System.out.println("MUNICÍPIO: " + municipio.getNome());
+		// }
 		
 		FileReader file = new FileReader("arquivos/base.txt");
 		
@@ -75,13 +70,13 @@ public class Loader implements ApplicationRunner {
 					
 				case "E":
 					
-					/*editora = new Editora();
+					editora = new Editora();
 					
-					editora.setCodigo(Integer.parseInt(campos[1]));
+					// editora.setCodigo(Integer.parseInt(campos[1]));
 					
 					editora.setNome(campos[3]);
 					
-					editora.setEnderecoWeb(campos[4]);*/
+					editora.setEnderecoWeb(campos[4]);
 					
 					break;
 				case "LF":
@@ -98,8 +93,6 @@ public class Loader implements ApplicationRunner {
 					livro.setTemEstoque(Boolean.parseBoolean(campos[5]));
 					
 					livro.setCapaDura(Boolean.parseBoolean(campos[6]));
-					
-					livro.setEditora(editora);
 					
 					livro.setAutor(autor);
 					
@@ -123,8 +116,6 @@ public class Loader implements ApplicationRunner {
 					eLivro.setLink(campos[5]);
 					
 					eLivro.setNumeroDownloads(Integer.parseInt(campos[6]));
-					
-					eLivro.setEditora(editora);
 					
 					eLivro.setAutor(autor);
 					
@@ -151,9 +142,10 @@ public class Loader implements ApplicationRunner {
 					
 					Endereco endereco = localidadeService.findByCep(campos[1]);
 					
-					for(Livro livroDoAutor: autor.getLivros()) {
-						livroDoAutor.getEditora().setEndereco(endereco);
-					}
+					// for(Livro livroDoAutor: autor.getLivros()) {
+					// 	livroDoAutor.getEditora().setEndereco(endereco);
+					// }
+					editora.setEndereco(endereco);
 					
 				default:
 					break;

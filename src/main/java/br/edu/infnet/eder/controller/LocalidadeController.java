@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.eder.model.domain.Estado;
@@ -25,8 +25,8 @@ public class LocalidadeController {
 		return localidadeService.obterEstados();
 	}
 	
-	@GetMapping("/obterListaMunicipios/{id}")
-	public Collection<Municipio> obterMunicipios(@PathVariable Integer id){
+	@GetMapping("/obterListaMunicipios")
+	public Collection<Municipio> obterMunicipios(@RequestParam Integer id){
 		return localidadeService.obterMunicipios(id);
 	}
 	

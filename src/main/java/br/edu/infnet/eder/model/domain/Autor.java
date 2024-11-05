@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="Autor")
@@ -34,6 +33,12 @@ public class Autor {
 		livros = new ArrayList<Livro>();
 	}
 	
+	public Autor(String nome, LocalDate dataNascimento){
+		livros = new ArrayList<Livro>();
+		this.nome = nome;
+		this.dataNascimento = dataNascimento;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[%d] Autor: %s cadastrado com sucesso! Quantidade de livros: %d",

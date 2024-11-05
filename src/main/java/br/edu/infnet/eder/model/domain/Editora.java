@@ -1,11 +1,50 @@
 package br.edu.infnet.eder.model.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity
+@Table(name = "Editora")
 public class Editora {
-	private int codigo;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String Nome;
 	private String enderecoWeb;
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@JsonManagedReference
+	private List<Livro> livros;
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "idEndereco")
 	private Endereco endereco;
 	
+	public Editora(){
+		livros = new ArrayList<>();
+	}
+
+	public void setLivros(List<Livro> livros){
+		this.livros = livros;
+	}
+
+	public List<Livro> getLivros(){
+		return livros;
+	}
+
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
@@ -14,12 +53,12 @@ public class Editora {
 		return endereco;
 	}
 	
-	public int getCodigo() {
-		return this.codigo;
+	public Integer getId() {
+		return this.id;
 	}
 	
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	public String getEnderecoWeb() {
