@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.infnet.eder.exceptions.LivroNaoEncontradoException;
 import br.edu.infnet.eder.model.domain.ELivro;
 import br.edu.infnet.eder.model.repository.ELivroRepository;
 
@@ -21,5 +22,15 @@ public class ELivroService {
 	}
 	public long obterQtde() {
 		return eLivroRepository.count();
+	}
+	
+	public ELivro alterar(ELivro livro){
+		boolean livroExiste = eLivroRepository.existsById(livro.getId());
+
+		if (!livroExiste){
+			throw new LivroNaoEncontradoException();
+		}
+
+		return eLivroRepository.save(livro);
 	}
 }

@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="Autor")
 public class Autor {
@@ -27,6 +29,7 @@ public class Autor {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JoinColumn(name = "idAutor")
+	@JsonManagedReference
 	private List<Livro> livros;
 	
 	public Autor() {

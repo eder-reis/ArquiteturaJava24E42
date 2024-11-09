@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.infnet.eder.Constantes;
 import br.edu.infnet.eder.model.domain.ELivro;
 import br.edu.infnet.eder.model.service.ELivroService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +44,6 @@ public class ELivroController {
 	public ResponseEntity<String> incluir(@RequestBody ELivro livro) {
 		eLivroService.incluir(livro);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body("Inclusão realizada com sucesso.");
+		return ResponseEntity.status(HttpStatus.CREATED).body(Constantes.MSG_INCLUSAO_SUCESSO);
 	}
 }

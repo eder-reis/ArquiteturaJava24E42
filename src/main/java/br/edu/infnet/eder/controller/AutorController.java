@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.infnet.eder.Constantes;
 import br.edu.infnet.eder.model.domain.Autor;
 import br.edu.infnet.eder.model.service.AutorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,9 +23,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RestController
 @RequestMapping("/autor")
 public class AutorController {
-	private static final String MSG_INCLUSAO_SUCESSO = "Inclusão realizada com sucesso.";
-	private static final String MSG_EXCLUSAO_SUCESSO = "Exclusão realizada com sucesso.";
-	private static final String MSG_EXCLUSAO_NOT_FOUND = "Autor não encontrado.";
 
 	@Autowired
 	private AutorService autorService;
@@ -75,7 +73,7 @@ public class AutorController {
 	public ResponseEntity<String> incluir(@RequestBody Autor autor) {
 		autorService.incluir(autor);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(MSG_INCLUSAO_SUCESSO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(Constantes.MSG_INCLUSAO_SUCESSO);
 	}
 
 	@Operation(summary = "Exclui autor pelo Id.")
@@ -87,9 +85,9 @@ public class AutorController {
 	@DeleteMapping(value = "/excluir")
 	public ResponseEntity<String> excluir(@RequestParam Integer id) {
 		if(autorService.excluir(id)) {
-			return ResponseEntity.ok(MSG_EXCLUSAO_SUCESSO);
+			return ResponseEntity.ok(Constantes.MSG_EXCLUSAO_SUCESSO);
 		}
 
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MSG_EXCLUSAO_NOT_FOUND);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Constantes.MSG_AUTOR_NOT_FOUND);
 	}
 }

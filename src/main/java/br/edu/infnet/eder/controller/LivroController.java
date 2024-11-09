@@ -8,12 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import br.edu.infnet.eder.Constantes;
 import br.edu.infnet.eder.model.domain.Livro;
 import br.edu.infnet.eder.model.service.LivroService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,19 +59,7 @@ public class LivroController {
 		
 		return ResponseEntity.ok(livroService.obterLista());
 	}
-
-    @Operation(summary = "Incluir livro.")
-	@ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Criado"),
-			@ApiResponse(responseCode = "500", description = "Erro interno do sistema")
-		})
-    @PostMapping(value = "/incluir")
-    public ResponseEntity<String> incluir(@RequestBody Livro livro){
-        livroService.incluir(livro);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("Inclusão realizada com sucesso.");
-    }
-
+	
     @Operation(summary = "Excluir livro.")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Sucesso"),
@@ -80,7 +70,7 @@ public class LivroController {
 		
 		livroService.excluir(id);
 		
-		return ResponseEntity.ok("Exclusão realizada com sucesso.");
+		return ResponseEntity.ok(Constantes.MSG_EXCLUSAO_SUCESSO);
 	}
 
     @Operation(summary = "Recupera livro por id.")
@@ -91,5 +81,13 @@ public class LivroController {
     @GetMapping()
 	public ResponseEntity<Livro> obterPorId(@RequestParam Integer id) {
 		return ResponseEntity.ok(livroService.obterPorId(id));
+	}
+
+
+	@PatchMapping(value = "/alterarPreco")
+	public ResponseEntity<Livro> alterar(@RequestParam Integer id, @RequestParam float preco) {
+		Livro livroAtualizado = livroService.alterarPreco(id, preco);
+		
+		return ResponseEntity.ok(livroAtualizado);
 	}
 }

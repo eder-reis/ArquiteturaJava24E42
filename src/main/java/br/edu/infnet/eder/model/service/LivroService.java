@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.infnet.eder.exceptions.LivroNaoEncontradoException;
 import br.edu.infnet.eder.model.domain.Livro;
 import br.edu.infnet.eder.model.repository.EditoraRepository;
 import br.edu.infnet.eder.model.repository.LivroRepository;
@@ -42,5 +43,14 @@ public class LivroService {
 
 	public Collection<Livro> obterLista(){
 		return (Collection<Livro>)livroRepository.findAll();
+	}
+
+	public Livro alterarPreco(Integer id, float preco){
+		Livro livroExistente = livroRepository.findById(id).orElseThrow(() -> 
+		new LivroNaoEncontradoException());
+
+		livroExistente.setPreco(preco);
+
+		return livroRepository.save(livroExistente);
 	}
 }

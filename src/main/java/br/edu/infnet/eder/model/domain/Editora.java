@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -22,7 +24,11 @@ public class Editora {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@NotBlank(message = "O nome da editora é obrigatório.")
+	@Size(min = 3, max = 50, message = "O nome da editora deve conter entre 3 a 50 caracteres.")
 	private String Nome;
+	
 	private String enderecoWeb;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)

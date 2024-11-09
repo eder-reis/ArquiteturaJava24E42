@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import br.edu.infnet.eder.Constantes;
 import br.edu.infnet.eder.model.domain.LivroFisico;
 
 @RestController
@@ -45,6 +46,6 @@ public class LivroFisicoController {
 	public ResponseEntity<String> incluir(@RequestBody LivroFisico livro) {
 		livroFisicoService.incluir(livro);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body("Inclusão realizada com sucesso.");
+		return ResponseEntity.status(HttpStatus.CREATED).body(Constantes.MSG_INCLUSAO_SUCESSO);
 	}
 }
