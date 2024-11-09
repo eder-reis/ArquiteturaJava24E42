@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.eder.model.domain.Autor;
-import br.edu.infnet.eder.model.domain.dto.AutorDto;
 import br.edu.infnet.eder.model.repository.AutorRepository;
 
 @Service
@@ -18,14 +17,9 @@ public class AutorService {
 		return autorRepository.save(autor);
 	}
 	
-	public Autor incluir(AutorDto autorDto){
-		Autor autor = new Autor(autorDto.getNome(), autorDto.getDataNascimento());
-
-		return incluir(autor);
-	}
-
-	public void excluir(Integer id){
+	public boolean excluir(Integer id){
 		autorRepository.deleteById(id);
+		return true;
 	}
 
 	public Collection<Autor> obterLista(){
